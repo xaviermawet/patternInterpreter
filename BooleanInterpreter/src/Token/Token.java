@@ -6,4 +6,5 @@ package Token;
  */
 public interface Token
 {
+    public void execute(Context c);
 }
