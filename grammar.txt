@@ -1,0 +1,17 @@
+<expression>::=<orexpr>
+
+<orexpr> ::= <andexpr> 'or' <orexpr>
+<orexpr> ::= <andexpr>
+
+<andexpr> ::= <simpleexpression> 'and' <andexpr>
+<andexpr> ::= <simpleexpression>
+
+<simpleexpression> ::= <identifier> 
+                     | <bracketExpression>
+
+<bracketExpression> ::= '(' <expression> ')'
+<identifier> ::= 'A'
+               | 'B'
+               | ...
+               | 'true'
+               | 'false'
