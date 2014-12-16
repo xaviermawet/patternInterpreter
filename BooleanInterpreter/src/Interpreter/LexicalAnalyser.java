@@ -1,6 +1,7 @@
 package Interpreter;
 
-import Token.Token;
+import Utils.ParsingErrorException;
+import Utils.ReturnValue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StreamTokenizer;
@@ -11,11 +12,11 @@ import java.io.StreamTokenizer;
  */
 public class LexicalAnalyser
 {
-    private static final int openParenthesis = '(';
-    private static final int closeParenthesis = ')';
+    private static final int leftBracket  = '(';
+    private static final int rightBracket = ')';
     
-    private InputStream inputStream;
-    private StreamTokenizer streamTokenizer;
+    private final InputStream inputStream;
+    private final StreamTokenizer streamTokenizer;
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     public LexicalAnalyser(InputStream inputStream)
@@ -26,48 +27,45 @@ public class LexicalAnalyser
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Public methods">
-    public Token nextToken() throws IOException
+    public Token nextToken() throws ParsingErrorException, IOException
     {
         switch(streamTokenizer.nextToken())
         {
-            case StreamTokenizer.TT_EOF:
-                System.out.println("EOF");
-                break;
             case StreamTokenizer.TT_WORD:
                 switch(streamTokenizer.sval)
                 {
                     case "true":
-                        System.out.println("WORD true");
-                        break;
+                        System.out.println("true");
+                        return Token.TRUE;
                     case "false":
-                        System.out.println("WORD false");
-                        break;
+                        System.out.println("false");
+                        return Token.FALSE;
                     case "and":
-                        System.out.println("WORD and");
-                        break;
+                        System.out.println("and");
+                        return Token.AND;
+                    case "or":
+                        System.out.println("or");
+                        return Token.OR;
                     default:
-                        System.out.println("Autre WORD : " + streamTokenizer.sval);
+                        System.out.println(streamTokenizer.sval);
+                        return new Token(streamTokenizer.sval);
                 }
-                break;
-            case StreamTokenizer.TT_NUMBER:
-                double asci = streamTokenizer.nval;
-                System.out.println("number");
-                break;
-            case StreamTokenizer.TT_EOL:
-                System.out.println("end of line");
-                break;
-            case LexicalAnalyser.openParenthesis:
+            case LexicalAnalyser.leftBracket:
                 System.out.println("(");
-                break;
-            case LexicalAnalyser.closeParenthesis:
+                return Token.LEFT_BRACKET;
+            case LexicalAnalyser.rightBracket:
                 System.out.println(")");
-                break;
+                return Token.RIGHT_BRACKET;
+            case StreamTokenizer.TT_EOF:
+                System.out.println("EOF");
+                return null;
+            case StreamTokenizer.TT_NUMBER:
+                throw new ParsingErrorException("Number found");
+            case StreamTokenizer.TT_EOL:
+                throw new ParsingErrorException("End Of Line found");
             default:
-                System.out.println("Autre...");
-                break;
+                throw new ParsingErrorException("Invalid token found");
         }
-        
-        return null;
     }
     //</editor-fold>
 }
