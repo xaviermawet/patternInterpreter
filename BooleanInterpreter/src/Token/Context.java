@@ -18,7 +18,7 @@ public class Context
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Public methods">
-    public boolean setValue(String identifier, boolean value)
+    public Boolean setValue(String identifier, boolean value)
     {
         return this.values.put(identifier, value);
     }
