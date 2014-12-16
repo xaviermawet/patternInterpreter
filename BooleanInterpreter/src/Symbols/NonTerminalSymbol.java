@@ -1,10 +1,12 @@
-package Token;
+package Symbols;
+
+import Interpreter.Context;
 
 /**
  *
  * @author nakim
  */
-public interface Token
+public interface NonTerminalSymbol
 {
-    public void execute(Context c);
+    public boolean execute(Context context);
 }

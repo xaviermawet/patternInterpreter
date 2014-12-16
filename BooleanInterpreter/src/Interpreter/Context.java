@@ -1,4 +1,4 @@
-package Token;
+package Interpreter;
 
 import java.util.HashMap;
 
