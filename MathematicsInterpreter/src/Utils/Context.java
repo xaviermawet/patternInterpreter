@@ -1,6 +1,5 @@
-package Interpreter;
+package Utils;
 
-import Utils.ContextErrorException;
 import java.util.HashMap;
 
 /**
