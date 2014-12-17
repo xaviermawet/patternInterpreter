@@ -1,6 +1,7 @@
 package Symbols;
 
 import Interpreter.Context;
+import Utils.ContextErrorException;
 
 /**
  *
@@ -8,5 +9,5 @@ import Interpreter.Context;
  */
 public interface NonTerminalSymbol
 {
-    public boolean execute(Context context);
+    public boolean interpret(Context context) throws ContextErrorException;
 }
