@@ -2,6 +2,7 @@ package Interpreter;
 
 import Symbols.Expression;
 import Symbols.Symbol;
+import Symbols.Terme;
 import Utils.ParsingErrorException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,14 +50,12 @@ public class Parser
         // On récupère le <terme>
         Symbol terme = this.termeProcedure();
         
-        // On récupère le signe '+' ou '-'
+        // On récupère le signe '+' ou '-' (ou alors END ou une parenthèse fermante)
         this.currentToken = this.lexicalAnalyser.nextToken();
-        Token sign = this.currentToken;
-        
-        System.out.println("Sign : " + sign);
         
         // <expression> ::= <terme>
-        if (sign.match(Token.END))
+        if (this.currentToken.match(Token.END) ||
+            this.currentToken.match(Token.RIGHT_BRACKET))
             return new Expression(terme);
         
         // L'expression n'est pas composée d'un unique terme
@@ -65,18 +64,44 @@ public class Parser
         Symbol expression = this.expressionProcedure();
         
         // <expression> ::= <terme> '+' <expression>
-        if (sign.match(Token.PLUS))
+        if (this.currentToken.match(Token.PLUS))
             return new Expression(terme, Expression.ADDITION, expression);
         // <expression> ::= <terme> '-' <expression>
-        if (sign.match(Token.MINUS))
+        if (this.currentToken.match(Token.MINUS))
             return new Expression(terme, Expression.SUBTRACTION, expression);
         
         throw new ParsingErrorException(this.currentToken.getLexem());
     }
     
-    private Symbol termeProcedure()
+    private Symbol termeProcedure() throws IOException, ParsingErrorException
     {
-        return null;
+        // <terme> ::= <facteur> '*' <terme>
+        //           | <facteur> '/' <terme>
+        //           | <facteur>
+
+        // On récupère le <facteur>
+        Symbol facteur = this.facteurProcedure();
+
+        // On récupère le signe '*' ou '/'
+        this.currentToken = this.lexicalAnalyser.nextToken();
+
+        // <terme> ::= <facteur> '*' <terme>
+        if (this.currentToken.match(Token.TIMES))
+        {
+            Symbol terme = this.termeProcedure();
+            return new Terme(facteur, Terme.MULTIPLICATION, terme);
+        }
+        // <terme> ::= <facteur> '/' <terme>
+        if (this.currentToken.match(Token.DIVIDED))
+        {
+            Symbol terme = this.termeProcedure();
+            return new Terme(facteur, Terme.DIVISION, terme);
+        }
+        if (this.currentToken.match(Token.ERROR))
+            throw new ParsingErrorException(this.currentToken.getLexem());
+
+        // <terme> ::= <facteur>
+        return new Terme(facteur);
     }
     
     private Symbol facteurProcedure()
