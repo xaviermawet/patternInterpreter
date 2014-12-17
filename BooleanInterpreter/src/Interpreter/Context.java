@@ -1,5 +1,6 @@
 package Interpreter;
 
+import Utils.ContextErrorException;
 import java.util.HashMap;
 
 /**
@@ -18,14 +19,17 @@ public class Context
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Public methods">
-    public Boolean setValue(String identifier, boolean value)
+    public boolean setValue(String identifier, boolean value)
     {
-        return this.values.put(identifier.toUpperCase(), value);
+        return this.values.put(identifier.toUpperCase(), value) != null;
     }
     
-    public boolean getValue(String identifier)
+    public boolean getValue(String identifier) throws ContextErrorException
     {
-        return this.values.get(identifier.toUpperCase());
+        Boolean value = this.values.get(identifier.toUpperCase());
+        if (value == null)
+            throw new ContextErrorException(identifier);
+        return value;
     }
     //</editor-fold>
 }
