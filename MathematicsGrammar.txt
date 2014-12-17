@@ -13,4 +13,4 @@
           | '-' <atome>
           | '(' <expression> ')'
           | sin <atome>
-          | cos <atome> 
+          | cos <atome>
