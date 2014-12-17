@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public class Context
 {
-    private final HashMap<String, Boolean> values;
+    private final HashMap<String, Double> values;
 
     //<editor-fold defaultstate="collapsed" desc="Constructeur">
     public Context()
@@ -18,14 +18,14 @@ public class Context
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Public methods">
-    public boolean setValue(String identifier, boolean value)
+    public boolean setValue(String identifier, double value)
     {
         return this.values.put(identifier.toUpperCase(), value) != null;
     }
     
-    public boolean getValue(String identifier) throws ContextErrorException
+    public double getValue(String identifier) throws ContextErrorException
     {
-        Boolean value = this.values.get(identifier.toUpperCase());
+        Double value = this.values.get(identifier.toUpperCase());
         if (value == null)
             throw new ContextErrorException(identifier);
         return value;
