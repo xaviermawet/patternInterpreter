@@ -1,17 +1,14 @@
 package Main;
 
-import Interpreter.LexicalAnalyser;
 import Interpreter.Parser;
-import Interpreter.Token;
 import Symbols.Symbol;
 import Utils.Context;
 import Utils.ContextErrorException;
+import Utils.ParsingErrorException;
 import Utils.ReturnValue;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -33,17 +30,27 @@ public class Main
         Context context = new Context();
         context.setValue("x", 42);
         
-        Symbol expression = parser.parse();
-        System.out.println("Parsing OK");
-        
         try
         {
+            Symbol expression = parser.parse();
+            System.out.println("Parsing OK");
+        
             double result = expression.interpret(context);
             System.out.println("Result : " + result);
         }
         catch (ContextErrorException ex)
         {
             System.err.println("Context error : " + ex.getMessage());
+            System.exit(ReturnValue.FAILURE.getReturnCode());
+        }
+        catch (ParsingErrorException ex)
+        {
+            System.err.println("Parsing error : " + ex.getMessage());
+            System.exit(ReturnValue.FAILURE.getReturnCode());
+        }
+        catch (IOException ex)
+        {
+            System.err.println("I/O error : " + ex.getMessage());
             System.exit(ReturnValue.FAILURE.getReturnCode());
         }
     }
