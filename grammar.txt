@@ -1,15 +1,18 @@
 <expression>::=<orexpr>
 
-<orexpr> ::= <andexpr> 'or' <orexpr>
-<orexpr> ::= <andexpr>
+<orexpr> ::= <andexpr> 'or' <secondorexpr>
+<secondorexpr> ::= <orexpr>
+                 | 'false'
 
-<andexpr> ::= <simpleexpression> 'and' <andexpr>
-<andexpr> ::= <simpleexpression>
+<andexpr> ::= <simpleexpr> 'and' <secondandexpr>
+<secondandexpr> ::= <andexpr>
+                  | 'true'
 
-<simpleexpression> ::= <identifier> 
-                     | <bracketExpression>
+<simpleexpr> ::= <identifier>
+               | <bracketExpression>
 
 <bracketExpression> ::= '(' <expression> ')'
+
 <identifier> ::= 'A'
                | 'B'
                | ...
