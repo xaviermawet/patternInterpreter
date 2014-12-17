@@ -55,4 +55,10 @@ public class Token
         //return this.lexeme.equalsIgnoreCase(token.getLexem());
         return this.lexeme.startsWith(token.getLexem());
     }
+
+    @Override
+    public String toString()
+    {
+        return this.getLexem();
+    }
 }

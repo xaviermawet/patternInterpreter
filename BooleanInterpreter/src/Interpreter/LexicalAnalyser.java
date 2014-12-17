@@ -34,38 +34,27 @@ public class LexicalAnalyser
                 switch(streamTokenizer.sval)
                 {
                     case "true":
-                        System.out.println("true");
                         return Token.TRUE;
                     case "false":
-                        System.out.println("false");
                         return Token.FALSE;
                     case "and":
-                        System.out.println("and");
                         return Token.AND;
                     case "or":
-                        System.out.println("or");
                         return Token.OR;
                     default:
-                        System.out.println(streamTokenizer.sval);
                         return new Token(streamTokenizer.sval);
                 }
             case LexicalAnalyser.leftBracket:
-                System.out.println("(");
                 return Token.LEFT_BRACKET;
             case LexicalAnalyser.rightBracket:
-                System.out.println(")");
                 return Token.RIGHT_BRACKET;
             case StreamTokenizer.TT_EOF:
-                System.out.println("EOF");
                 return Token.END;
             case StreamTokenizer.TT_NUMBER:
-                System.out.println("Number found");
                 return new Token("INVALID : Number found");
             case StreamTokenizer.TT_EOL:
-                System.out.println("End Of Line found");
                 return new Token("INVALID : End Of Line found");
             default:
-                System.out.println("Invalid token found");
                 return new Token("INVALID : Invalid token found");
         }
     }
