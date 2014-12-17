@@ -1,7 +1,6 @@
 package Interpreter;
 
 import Utils.ParsingErrorException;
-import Utils.ReturnValue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StreamTokenizer;
@@ -27,7 +26,7 @@ public class LexicalAnalyser
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Public methods">
-    public Token nextToken() throws ParsingErrorException, IOException
+    public Token nextToken() throws IOException
     {
         switch(streamTokenizer.nextToken())
         {
@@ -58,13 +57,16 @@ public class LexicalAnalyser
                 return Token.RIGHT_BRACKET;
             case StreamTokenizer.TT_EOF:
                 System.out.println("EOF");
-                return null;
+                return Token.END;
             case StreamTokenizer.TT_NUMBER:
-                throw new ParsingErrorException("Number found");
+                System.out.println("Number found");
+                return new Token("INVALID : Number found");
             case StreamTokenizer.TT_EOL:
-                throw new ParsingErrorException("End Of Line found");
+                System.out.println("End Of Line found");
+                return new Token("INVALID : End Of Line found");
             default:
-                throw new ParsingErrorException("Invalid token found");
+                System.out.println("Invalid token found");
+                return new Token("INVALID : Invalid token found");
         }
     }
     //</editor-fold>

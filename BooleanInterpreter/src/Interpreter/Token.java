@@ -14,6 +14,9 @@ public class Token
     public static final Token LEFT_BRACKET;
     public static final Token RIGHT_BRACKET;
     
+    public static final Token END;
+    public static final Token INVALID;
+    
     static
     {
         TRUE  = new Token("true");
@@ -22,6 +25,9 @@ public class Token
         OR    = new Token("or");
         LEFT_BRACKET  = new Token("(");
         RIGHT_BRACKET = new Token(")");
+        
+        END     = new Token("END");
+        INVALID = new Token("INVALID");
     }
     //</editor-fold>
     
@@ -46,6 +52,7 @@ public class Token
     
     public boolean match(Token token)
     {
-        return this.lexeme.equalsIgnoreCase(token.getLexem());
+        //return this.lexeme.equalsIgnoreCase(token.getLexem());
+        return this.lexeme.startsWith(token.getLexem());
     }
 }
