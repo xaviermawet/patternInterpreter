@@ -9,15 +9,24 @@ import Utils.ContextErrorException;
  */
 public class Expression implements Symbol
 {
+    public static final boolean ADDITION;
+    public static final boolean SUBTRACTION;
+    
     private final Symbol  terme;
-    private final Symbol  expression;
     private final boolean addition;
+    private final Symbol  expression;
+    
+    static
+    {
+        ADDITION  = true;
+        SUBTRACTION = false;
+    }
 
-    public Expression(Symbol terme, Symbol expression, boolean addition)
+    public Expression(Symbol terme, boolean addition, Symbol expression)
     {
         this.terme = terme;
-        this.expression = expression;
         this.addition = addition;
+        this.expression = expression;
     }
 
     public Expression(Symbol terme)

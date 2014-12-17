@@ -53,6 +53,8 @@ public class Parser
         this.currentToken = this.lexicalAnalyser.nextToken();
         Token sign = this.currentToken;
         
+        System.out.println("Sign : " + sign);
+        
         // <expression> ::= <terme>
         if (sign.match(Token.END))
             return new Expression(terme);
@@ -64,10 +66,10 @@ public class Parser
         
         // <expression> ::= <terme> '+' <expression>
         if (sign.match(Token.PLUS))
-            return new Expression(terme, expression, true);
+            return new Expression(terme, Expression.ADDITION, expression);
         // <expression> ::= <terme> '-' <expression>
         if (sign.match(Token.MINUS))
-            return new Expression(terme, expression, false);
+            return new Expression(terme, Expression.SUBTRACTION, expression);
         
         throw new ParsingErrorException(this.currentToken.getLexem());
     }
