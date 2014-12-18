@@ -30,8 +30,10 @@ public class LexicalAnalyser
     {
         this.inputStream = inputStream;
         this.streamTokenizer = new StreamTokenizer(this.inputStream);
-        this.streamTokenizer.ordinaryChar(LexicalAnalyser.minus);
-        this.streamTokenizer.ordinaryChar(LexicalAnalyser.divided);
+        this.streamTokenizer.ordinaryChar(LexicalAnalyser.minus);   // +
+        this.streamTokenizer.ordinaryChar(LexicalAnalyser.plus);    // -
+        this.streamTokenizer.ordinaryChar(LexicalAnalyser.times);   // *
+        this.streamTokenizer.ordinaryChar(LexicalAnalyser.divided); // /
     }
     //</editor-fold>
     
