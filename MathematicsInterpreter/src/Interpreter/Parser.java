@@ -106,22 +106,30 @@ public class Parser
 
         // On récupère le <facteur>
         Symbol facteur = this.facteurProcedure();
-        
         System.out.println("    Retour Procedure terme    : " + this.currentToken);
 
-        // On récupère le signe '*' ou '/'
-        //this.currentToken = this.lexicalAnalyser.nextToken();
+        // Après avoir récupéré le facteur, le curseur se trouve sur le *, le / ou END
 
         // <terme> ::= <facteur> '*' <terme>
         if (this.currentToken.match(Token.TIMES))
         {
+            System.out.println("    on passe le signe *");
+            this.currentToken = this.lexicalAnalyser.nextToken();
+            
+            // on récupère le <terme>
             Symbol terme = this.termeProcedure();
+            
             return new Terme(facteur, Terme.MULTIPLICATION, terme);
         }
         // <terme> ::= <facteur> '/' <terme>
         if (this.currentToken.match(Token.DIVIDED))
         {
+            System.out.println("    on passe le signe /");
+            this.currentToken = this.lexicalAnalyser.nextToken();
+            
+            // On récupère le <terme>
             Symbol terme = this.termeProcedure();
+            
             return new Terme(facteur, Terme.DIVISION, terme);
         }
         if (this.currentToken.match(Token.ERROR))
