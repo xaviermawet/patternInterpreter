@@ -146,18 +146,21 @@ public class Parser
         // <facteur> ::= <Atome> '^' <facteur>
         //             | <Atome>
         
-        // On récupère le <Atome>
+        // On récupère l'<Atome>
         Symbol atome = this.atomeProcedure();
-        
         System.out.println("        Retour Procedure facteur : " + this.currentToken);
         
-         // On récupère éventuellement le signe '^'
-        //this.currentToken = this.lexicalAnalyser.nextToken();
+        // Après avoir récupéré l'atome, le curseur se trouve sur le ^ ou END
         
         // <facteur> ::= <Atome> '^' <facteur>
         if (this.currentToken.match(Token.EXPONENT))
         {
+            System.out.println("    on passe le signe ^");
+            this.currentToken = this.lexicalAnalyser.nextToken();
+            
+            // On récupère le <facteur>
             Symbol facteur = this.facteurProcedure();
+            
             return new Facteur(atome, facteur);
         }
         if (this.currentToken.match(Token.ERROR))
