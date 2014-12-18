@@ -18,6 +18,11 @@ public class Facteur implements Symbol
         this.facteur = facteur;
     }
     
+    public Facteur(Symbol atome)
+    {
+        this(atome, null);
+    }
+    
     @Override
     public double interpret(Context context) throws ContextErrorException
     {
