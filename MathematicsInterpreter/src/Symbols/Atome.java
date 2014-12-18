@@ -9,9 +9,17 @@ import Utils.ContextErrorException;
  */
 public class Atome implements Symbol
 {
+    // Can be a Number, an Expression, a SinAtome or a CosAtome
+    private final Symbol atomeElement;
+
+    public Atome(Symbol atomeElement)
+    {
+        this.atomeElement = atomeElement;
+    }
+
     @Override
     public double interpret(Context context) throws ContextErrorException
     {
-        return 0;
+        return this.atomeElement.interpret(context);
     }
 }
