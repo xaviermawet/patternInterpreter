@@ -14,3 +14,22 @@
           | '(' <expression> ')'
           | sin <atome>
           | cos <atome>
+
+-------------------------------------------------
+
+<expression> ::= <terme> '+' <expression>
+               | <terme> '-' <expression>
+               | <terme>
+
+<terme> ::= <facteur> '*' <terme>
+          | <facteur> '/' <terme>
+          | <facteur>
+
+<facteur> ::= <Atome> '^' <facteur>
+            | <Atome>
+
+<Atome> ::= <nombre>
+          | <identifier>
+          | '(' <expression> ')'
+          | sin <atome>
+          | cos <atome>

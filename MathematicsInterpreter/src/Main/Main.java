@@ -22,7 +22,8 @@ public class Main
     public static void main(String[] args)
     {
         // Instancier le parseur en lui donnant la source de données
-        String calcul = "(x+10)*sin(x)-3*cos(x*x)";
+        //String calcul = "(x+10)*sin(x)-3*cos(x*x)";
+        String calcul = "3 + (4) + 3 - x";
         InputStream stream = new ByteArrayInputStream(calcul.getBytes());
         Parser parser = new Parser(stream);
         
