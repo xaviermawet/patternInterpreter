@@ -7,11 +7,18 @@ import Utils.ContextErrorException;
  *
  * @author Nakim
  */
-public class nombre implements Symbol
+public class Nombre implements Symbol
 {
+    private double number;
+
+    public Nombre(double number)
+    {
+        this.number = number;
+    }
+
     @Override
     public double interpret(Context context) throws ContextErrorException
     {
-        return 0;
+        return this.number;
     }
 }
