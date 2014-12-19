@@ -37,4 +37,26 @@ public class TrigoAtome implements Symbol
                 return this.atome.interpret(context);
         }
     }
+
+    @Override
+    public Symbol derive(Context context) throws ContextErrorException
+    {
+        Symbol trigonoDerived;
+        switch(this.trigonometricFunction)
+        {
+            case SIN:
+                trigonoDerived = new TrigoAtome(this.atome, TrigoAtome.COS);
+                break;
+            case COS:
+                trigonoDerived = new Expression(new Nombre(0), Expression.SUBTRACTION,
+                    new TrigoAtome(this.atome, TrigoAtome.SIN));
+                break;
+            case TAN:
+                return this;
+            default:
+                return this;
+        }
+        // f(x)' = x'*f'(x)
+        return new Terme(this.atome.derive(context), Terme.MULTIPLICATION, trigonoDerived);
+    }
 }

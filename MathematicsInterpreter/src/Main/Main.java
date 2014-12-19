@@ -21,9 +21,9 @@ public class Main
      */
     public static void main(String[] args)
     {
+        String calcul = "2*x*sin(3*x)";
+        
         // Instancier le parseur en lui donnant la source de données
-        //String calcul = "(x+10)*sin(x)-3*cos(x*x)";
-        String calcul = "2^cos(30 + x^2)";
         InputStream stream = new ByteArrayInputStream(calcul.getBytes());
         Parser parser = new Parser(stream);
         
@@ -35,9 +35,14 @@ public class Main
         {
             Symbol expression = parser.parse();
             System.out.println("Parsing OK");
+            
+            Symbol derive = expression.derive(context);
         
             double result = expression.interpret(context);
-            System.out.println("Result : " + result);
+            System.out.println("Result expression : " + result);
+            
+            result = derive.interpret(context);
+            System.out.println("Result dérivée : " + result);
         }
         catch (ContextErrorException ex)
         {

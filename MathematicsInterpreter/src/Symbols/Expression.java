@@ -46,4 +46,14 @@ public class Expression implements Symbol
                this.terme.interpret(context) + this.expression.interpret(context) :
                this.terme.interpret(context) - this.expression.interpret(context);
     }
+
+    @Override
+    public Symbol derive(Context context) throws ContextErrorException
+    {
+        if (this.expression == null)
+            return this.terme.derive(context);
+        
+        return new Expression(this.terme.derive(context), this.addition, 
+                              this.expression.derive(context));
+    }
 }

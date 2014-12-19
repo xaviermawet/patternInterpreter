@@ -22,4 +22,11 @@ public class Identifier implements Symbol
     {
         return context.getValue(identifier);
     }
+
+    @Override
+    public Symbol derive(Context context) throws ContextErrorException
+    {
+        System.out.println("dérivée d'un identifier vaut 1");
+        return new Nombre(1);
+    }
 }

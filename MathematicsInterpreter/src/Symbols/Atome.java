@@ -22,4 +22,10 @@ public class Atome implements Symbol
     {
         return this.atomeElement.interpret(context);
     }
+
+    @Override
+    public Symbol derive(Context context) throws ContextErrorException
+    {
+        return this.atomeElement.derive(context);
+    }
 }

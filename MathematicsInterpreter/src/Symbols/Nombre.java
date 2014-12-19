@@ -21,4 +21,11 @@ public class Nombre implements Symbol
     {
         return this.number;
     }
+
+    @Override
+    public Symbol derive(Context context) throws ContextErrorException
+    {
+        System.out.println("dérivée d'un nombre vaut 0");
+        return new Nombre(0);
+    }
 }
